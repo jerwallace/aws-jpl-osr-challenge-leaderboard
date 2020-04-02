@@ -1,0 +1,15 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-awsjplosrchallenge-prod-180357-authRole",
+            "UnauthRoleArn": "arn:aws:iam::127796135357:role/amplify-awsjplosrchallenge-prod-180357-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::127796135357:role/amplify-awsjplosrchallenge-prod-180357-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-awsjplosrchallenge-prod-180357-deployment",
+            "UnauthRoleName": "amplify-awsjplosrchallenge-prod-180357-unauthRole",
+            "StackName": "amplify-awsjplosrchallenge-prod-180357",
+            "StackId": "arn:aws:cloudformation:us-east-1:127796135357:stack/amplify-awsjplosrchallenge-prod-180357/dae23f60-752d-11ea-b547-0aa554d91bcc",
+            "AmplifyAppId": "d28qu5vzofwm25"
+        }
+    }
+}
