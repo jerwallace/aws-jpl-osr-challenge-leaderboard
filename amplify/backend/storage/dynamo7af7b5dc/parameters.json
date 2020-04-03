@@ -1,0 +1,7 @@
+{
+    "tableName": "leaders",
+    "partitionKeyName": "name",
+    "partitionKeyType": "S",
+    "sortKeyName": "score",
+    "sortKeyType": "S"
+}
