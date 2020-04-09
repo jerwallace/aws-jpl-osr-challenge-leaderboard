@@ -19,22 +19,33 @@ class Leaderboard extends React.Component {
       this.setState({leaders: response})
     });
   }
-  render() {
 
+  sortArray() {
+    let noScoreArray = [];
+    let scoreArray = [];
+    this.state.leaders.forEach(function(entry) {
+      if (parseFloat(entry.score)) {
+        scoreArray.push(entry)
+      } else {
+        noScoreArray.push(entry)
+      }
+    });
+    return scoreArray.reverse().concat(noScoreArray);
+  }
+
+  render() {
     return (
         <Container fluid>
           <Container>
             <Image src='logo.png' size='huge' />
-            <LeaderboardTable leaders={this.state.leaders.reverse()} />
+            <LeaderboardTable leaders={this.sortArray()} />
           </Container>
-          <footer style={{position: 'absolute', 
-                          bottom: 0,
-                          width: '100%',
+          <footer style={{ width: '100%',
                           height: '90px',
                           paddingTop: '20px',
                           paddingBottom: '20px',
                           backgroundColor: '#fff',
-                          marginTop: 0,
+                          marginTop: '20px',
                           marginBottom: 0, borderTop: '#333 solid 6px' }}>
             <Image src='https://spacechallenge.tech/wp-content/uploads/2019/11/BOTTOMOFAWSNASA.jpg' size='medium' centered />
           </footer>

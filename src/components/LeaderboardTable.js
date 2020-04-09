@@ -6,9 +6,8 @@ class LeaderboardTable extends React.Component {
     super(props);
   }
   generateLabel(n) {
-    if (n===1) { return(<Label ribbon color="yellow">#1 - First Place</Label>) }
-    else if (n===2) { return(<Label ribbon color="grey">#2 - Second Place</Label>) }
-    else if (n===3) { return(<Label ribbon color="brown">#3 - Third Place</Label>) }
+    if (n===1) { return(<Label ribbon color="yellow">#1 - Winner</Label>) }
+    else if (n===2) { return(<Label ribbon color="grey">#2 - Runner-up</Label>) }
     else {
       return(<Label ribbon>#{n}</Label>)
     }
