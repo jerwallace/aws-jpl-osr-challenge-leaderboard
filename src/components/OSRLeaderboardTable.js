@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Label, Container, Icon } from 'semantic-ui-react'
 
-class LeaderboardTable extends React.Component {
+class OSRLeaderboardTable extends React.Component {
   generateLabel(n) {
     n = n + 1;
     if (n===1) { return(<Label ribbon color="yellow">#1 - Winner</Label>) }
@@ -95,4 +95,4 @@ class LeaderboardTable extends React.Component {
   }
 }
 
-export default LeaderboardTable
+export default OSRLeaderboardTable
