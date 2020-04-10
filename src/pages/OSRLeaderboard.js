@@ -26,14 +26,14 @@ class OSRLeaderboard extends React.Component {
     return (
         <Container fluid className="main">
           <Container >
-            <Image src='logo.png' size='huge' />
+            <Image src='/logo.png' size='huge' />
             <OSRLeaderboardTable leaders={this.state.leaders.reverse()} />
           </Container>
           <footer style={{ width: '100%',
                           height: '150px',
                           paddingTop: '50px'
                      }}>
-            <Image src='sponsoredby.png' size='large' centered />
+            <Image src='/sponsoredby.png' size='large' centered />
           </footer>
         </Container>          
     );
