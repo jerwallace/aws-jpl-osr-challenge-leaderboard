@@ -53,7 +53,7 @@ class LeaderboardTable extends React.Component {
         <Table.Row>
           <Table.HeaderCell rowSpan='2'>Rank</Table.HeaderCell>
           <Table.HeaderCell rowSpan='2'>Entry</Table.HeaderCell>
-          <Table.HeaderCell colSpan='3'>Results</Table.HeaderCell>
+          <Table.HeaderCell colSpan='4'>Results</Table.HeaderCell>
         </Table.Row>
         <Table.Row>
           <Table.HeaderCell>Score</Table.HeaderCell>
