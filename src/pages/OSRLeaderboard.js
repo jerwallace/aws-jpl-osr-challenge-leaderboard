@@ -16,7 +16,7 @@ class OSRLeaderboard extends React.Component {
   }
   componentDidMount(){
     API.get(apiName, path).then(response => {
-      this.setState({leaders: response})
+      this.setState({leaders: response.reverse()})
     });
     document.body.classList.add('osr');
     document.title = "AWS JPL Open Source Rover Challenge"
@@ -27,7 +27,7 @@ class OSRLeaderboard extends React.Component {
         <Container fluid className="main">
           <Container >
             <Image src='/logo.png' size='huge' />
-            <OSRLeaderboardTable leaders={this.state.leaders.reverse()} />
+            <OSRLeaderboardTable leaders={this.state.leaders} />
           </Container>
           <footer style={{ width: '100%',
                           height: '150px',

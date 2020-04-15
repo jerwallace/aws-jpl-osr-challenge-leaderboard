@@ -1,7 +1,13 @@
 import React from 'react'
-import { Table, Label, Container, Icon } from 'semantic-ui-react'
+import { Table, Header, Grid, Button, Label, Container, Icon, Modal } from 'semantic-ui-react'
+import { Player } from 'video-react';
 
 class OSRLeaderboardTable extends React.Component {
+  
+  state = { open: false, video: { id: "", name: ""} }
+  show = (video) => () => this.setState({ video, open: true })
+  close = () => this.setState({ open: false })
+
   generateLabel(n) {
     n = n + 1;
     if (n===1) { return(<Label ribbon color="yellow">#1 - Winner</Label>) }
@@ -41,56 +47,93 @@ class OSRLeaderboardTable extends React.Component {
       return (<Table.Cell>{this.generateLabel(i)}</Table.Cell>)
     }
   }
+
+  generateSimLinks(leaderID) {
+    return(<Table.Cell>
+          <Button.Group vertical labeled icon>
+              <Button compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim1.mp4"})} content='Trial 1' />
+              <Button compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim2.mp4"})} style={{borderTop:"1px solid #222", borderBottom:"1px solid #222"}} content='Trial 2' />
+              <Button compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim3.mp4"})} content='Trial 3' />
+          </Button.Group>
+        </Table.Cell>)
+  }
+
+  generateLogLinks(id) {
+    return(<Table.Cell>
+      <a href={"http://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log1.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 1</a>
+      <br />
+      <a href={"http://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log2.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 2</a>
+      <br />
+      <a href={"http://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log3.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 3</a>
+    </Table.Cell>)
+  }
+
   render() {
+    const { open, video } = this.state
     let leaders = this.props.leaders
     let i = 0
     return (
-    <Table celled padded inverted size="large" style={{borderStyle: 'collapse'}}>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell rowSpan='2'>Rank</Table.HeaderCell>
-          <Table.HeaderCell rowSpan='2'>Entry</Table.HeaderCell>
-          <Table.HeaderCell colSpan='4'>Results</Table.HeaderCell>
-        </Table.Row>
-        <Table.Row>
-          <Table.HeaderCell>Score</Table.HeaderCell>
-          <Table.HeaderCell>Summary</Table.HeaderCell>
-          <Table.HeaderCell>Log Files</Table.HeaderCell>
-          <Table.HeaderCell>Watch</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-          {leaders.map((leader) =>
-            <Table.Row key={leader.id}>
-                    {this.generateRank(i++)} 
-                    <Table.Cell style={{fontSize: "12px"}} fixed>
-                      {leader.id}
-                    </Table.Cell>
-                    <Table.Cell style={{fontWeight: "bold"}} fixed>
-                      {leader.score}
-                    </Table.Cell>
-                    <Table.Cell>
-                      {this.generateOutcome(leader.outcome)}
-                      {leader.summary}
-                    </Table.Cell>
-                    <Table.Cell>
-                      <a href={"https://s3.amazonaws.com/opensourceroverchallenge/"+leader.id+"/logs/log1.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 1</a>
-                      <br />
-                      <a href={"https://s3.amazonaws.com/opensourceroverchallenge/"+leader.id+"/logs/log2.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 2</a>
-                      <br />
-                      <a href={"https://s3.amazonaws.com/opensourceroverchallenge/"+leader.id+"/logs/log3.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 3</a>
-                    </Table.Cell>
-                    <Table.Cell>
-                      <a href={"https://s3.amazonaws.com/opensourceroverchallenge/"+leader.id+"/sim/sim1.mp4"} target="_blank" rel="noopener noreferrer"><Icon name="video play" size="small"></Icon>Simulation 1</a>
-                      <br />
-                      <a href={"https://s3.amazonaws.com/opensourceroverchallenge/"+leader.id+"/sim/sim2.mp4"} target="_blank" rel="noopener noreferrer"><Icon name="video play" size="small"></Icon>Simulation 2</a>
-                      <br />
-                      <a href={"https://s3.amazonaws.com/opensourceroverchallenge/"+leader.id+"/sim/sim3.mp4"} target="_blank" rel="noopener noreferrer"><Icon name="video play" size="small"></Icon>Simulation 3</a>
-                    </Table.Cell>
+    <div>
+        <Modal open={open} onClose={this.close}>
+         <Modal.Header>
+         <Grid>
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Header icon='video camera' content='Watch Simulation Trial' />
+              </Grid.Column>
+              <Grid.Column floated='right' style={{textAlign:"right"}}>
+                  <Button
+                    size='small'
+                    onClick={this.close}
+                    icon='close'
+                  />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          </Modal.Header>
+          <Modal.Content>
+              <div style={{fontSize:"1.2em", fontWeight: "bold"}}> Submission: {video.id}</div>
+              <Player
+                playsInline
+                src={"http://d12dhnpskrt04j.cloudfront.net/"+video.id+"/sim/"+video.name}
+              />
+          </Modal.Content>
+        </Modal>
+      <Table celled padded inverted size="large" style={{borderStyle: 'collapse'}}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell rowSpan='2'>Rank</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Entry</Table.HeaderCell>
+            <Table.HeaderCell colSpan='4'>Results</Table.HeaderCell>
+          </Table.Row>
+          <Table.Row>
+            <Table.HeaderCell>Score</Table.HeaderCell>
+            <Table.HeaderCell>Summary</Table.HeaderCell>
+            <Table.HeaderCell>Log Files</Table.HeaderCell>
+            <Table.HeaderCell>Watch</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+            {leaders.map((leader) =>
+              <Table.Row key={leader.id}>
+                      {this.generateRank(i++)} 
+                      <Table.Cell style={{fontSize: "12px"}} fixed>
+                        {leader.id}
+                      </Table.Cell>
+                      <Table.Cell style={{fontWeight: "bold"}} fixed>
+                        {leader.score}
+                      </Table.Cell>
+                      <Table.Cell>
+                        {this.generateOutcome(leader.outcome)}
+                        {leader.summary}
+                      </Table.Cell>
+                      {leader.outcome!=="failed" ? this.generateLogLinks(leader.id) : <Table.Cell>None Available</Table.Cell>}
+                      {leader.outcome!=="failed" ? this.generateSimLinks(leader.id) : <Table.Cell>None Available</Table.Cell>}
             </Table.Row>
-          )}
-      </Table.Body>
-    </Table>
+            )}
+        </Table.Body>
+      </Table>
+    </div>
     )
   }
 }
