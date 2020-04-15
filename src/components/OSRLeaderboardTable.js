@@ -51,9 +51,9 @@ class OSRLeaderboardTable extends React.Component {
   generateSimLinks(leaderID) {
     return(<Table.Cell>
           <Button.Group vertical labeled icon>
-              <Button compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim1.mp4"})} content='Trial 1' />
-              <Button compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim2.mp4"})} style={{borderTop:"1px solid #222", borderBottom:"1px solid #222"}} content='Trial 2' />
-              <Button compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim3.mp4"})} content='Trial 3' />
+              <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim1.mp4"})} content='Trial 1' />
+              <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim2.mp4"})} style={{borderTop:"2px solid #222", borderBottom:"2px solid #222"}} content='Trial 2' />
+              <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim3.mp4"})} content='Trial 3' />
           </Button.Group>
         </Table.Cell>)
   }
