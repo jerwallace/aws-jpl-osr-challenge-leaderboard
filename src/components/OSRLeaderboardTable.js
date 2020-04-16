@@ -121,7 +121,7 @@ class OSRLeaderboardTable extends React.Component {
                         {leader.id}
                       </Table.Cell>
                       <Table.Cell style={{fontWeight: "bold"}} fixed>
-                        {leader.score}
+                        {leader.outcome==='complete' ? leader.score : "0.0000" }
                       </Table.Cell>
                       <Table.Cell>
                         {this.generateOutcome(leader.outcome)}
