@@ -52,7 +52,7 @@ class OSRLeaderboardTable extends React.Component {
     return(<Table.Cell>
           <Button.Group vertical labeled icon>
               <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim1.mp4"})} content='Trial 1' />
-              <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim2.mp4"})} style={{borderTop:"2px solid #222", borderBottom:"2px solid #222"}} content='Trial 2' />
+              <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim2.mp4"})} style={{borderTop:"2spx solid #222", borderBottom:"2px solid #222"}} content='Trial 2' />
               <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim3.mp4"})} content='Trial 3' />
           </Button.Group>
         </Table.Cell>)
@@ -60,11 +60,11 @@ class OSRLeaderboardTable extends React.Component {
 
   generateLogLinks(id) {
     return(<Table.Cell>
-      <a href={"http://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log1.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 1</a>
+      <a href={"https://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log1.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 1</a>
       <br />
-      <a href={"http://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log2.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 2</a>
+      <a href={"https://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log2.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 2</a>
       <br />
-      <a href={"http://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log3.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 3</a>
+      <a href={"https://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log3.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 3</a>
     </Table.Cell>)
   }
 
@@ -95,7 +95,7 @@ class OSRLeaderboardTable extends React.Component {
               <div style={{fontSize:"1.2em", fontWeight: "bold"}}> Submission: {video.id}</div>
               <Player
                 playsInline
-                src={"http://d12dhnpskrt04j.cloudfront.net/"+video.id+"/sim/"+video.name}
+                src={"https://d12dhnpskrt04j.cloudfront.net/"+video.id+"/sim/"+video.name}
               />
           </Modal.Content>
         </Modal>
