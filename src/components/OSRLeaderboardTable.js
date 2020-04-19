@@ -36,7 +36,7 @@ class OSRLeaderboardTable extends React.Component {
     if (i===0) {
       return (<Table.Cell disabled rowSpan="4">{this.generateLabel(i)}</Table.Cell>)
     } else if (i===1) {
-      return (<Table.Cell disabled rowSpan="4"></Table.Cell>);
+      return (<Table.Cell disabled rowSpan="4" style={{border:"none"}}></Table.Cell>);
     } else {
       return (<Table.Cell disabled rowSpan="4">{this.generateLabel(i)}</Table.Cell>)
     }
@@ -105,7 +105,7 @@ class OSRLeaderboardTable extends React.Component {
           <Table.Row>
             <Table.HeaderCell rowSpan="2"><Icon name='numbered list' /> Rank</Table.HeaderCell>
             <Table.HeaderCell rowSpan="2"><Icon name='user' /> Entry</Table.HeaderCell>
-            <Table.HeaderCell colSpan="8"><Icon name='align justify'  /> Results</Table.HeaderCell>
+            <Table.HeaderCell colSpan="8"><Icon name='align justify'  /> Results  <span style={{color:"#888", fontWeight:"200"}}> - 3 trials per submission</span></Table.HeaderCell>
           </Table.Row>
             <Table.Row verticalAlign='top' style={{textAlign:"center"}}>
             <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name="checkmark" color='grey' /></Table.HeaderCell>} content="Mission status. Hover your mouse cursor over a trial to get a full summary of what happened."></Popup>
