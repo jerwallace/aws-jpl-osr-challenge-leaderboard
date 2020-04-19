@@ -125,6 +125,7 @@ class OSRLeaderboardTable extends React.Component {
                         {this.generateRank(i++, leader.outcome)} 
                         <Table.Cell disabled style={{fontWeight:"bold", color:"#fff"}}>
                           {leader.name}
+                          <div style={{color:"#666", fontWeight:"200"}}>Submission ID: {leader.id}</div>
                         </Table.Cell>
                         <Table.Cell disabled style={{background: this.getColor(leader.outcome), color:"#fff" }} >
                                 {this.generateOutcome(leader.outcome) }
@@ -136,6 +137,7 @@ class OSRLeaderboardTable extends React.Component {
                         {this.generateRank(i++, leader.outcome)} 
                         <Table.Cell disabled rowSpan="4" style={{fontWeight:"bold", color:"#fff"}}>
                           {leader.name}
+                          <div style={{color:"#666", fontWeight:"200"}}>Submission ID: {leader.id}</div>
                         </Table.Cell>
                   </Table.Row> }
                   {leader.trials.length > 0 ? leader.trials.sort((a, b) => (a.score < b.score) ? 1 : -1).map((trial) => 
