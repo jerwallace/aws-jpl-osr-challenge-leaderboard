@@ -1,0 +1,53 @@
+{
+    "paths": [
+        {
+            "name": "/submissions/leaderboard",
+            "lambdaFunction": "awsjplosrchallenge3719854b",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/submissions/{id}",
+            "lambdaFunction": "awsjplosrchallenge4302b4ea",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "api335d2c0c",
+    "apiName": "api335d2c0c",
+    "functionArns": [
+        {
+            "lambdaFunction": "awsjplosrchallenge3719854b"
+        },
+        {
+            "lambdaFunction": "awsjplosrchallenge4302b4ea"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-awsjplosrchallenge-production-154122-authRole",
+        "unAuthRoleName": "amplify-awsjplosrchallenge-production-154122-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "awsjplosrchallenge3719854b",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "awsjplosrchallenge4302b4ea",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "5a9289aa"
+}

@@ -4,8 +4,8 @@ import { Image, Container } from 'semantic-ui-react'
 import Amplify, { API } from 'aws-amplify';
 import aws_exports from "../aws-exports";
 Amplify.configure(aws_exports);
-let apiName = 'apid2b8bbf0';
-let path = '/leaders/leaderboard';
+let apiName = 'api335d2c0c';
+let path = '/submissions/leaderboard/SUBMISSION';
 
 class OSRLeaderboard extends React.Component {
   constructor(props) {
@@ -16,7 +16,9 @@ class OSRLeaderboard extends React.Component {
   }
   componentDidMount(){
     API.get(apiName, path).then(response => {
-      this.setState({leaders: response.reverse()})
+      console.log(response.reverse())
+      this.setState({leaders: response})
+
     });
     document.body.classList.add('osr');
     document.title = "AWS JPL Open Source Rover Challenge"
@@ -30,7 +32,7 @@ class OSRLeaderboard extends React.Component {
             <OSRLeaderboardTable leaders={this.state.leaders} />
           </Container>
           <footer style={{ width: '100%',
-                          height: '150px',
+                          height: '200px',
                           paddingTop: '50px'
                      }}>
             <Image src='/sponsoredby.png' size='large' centered />

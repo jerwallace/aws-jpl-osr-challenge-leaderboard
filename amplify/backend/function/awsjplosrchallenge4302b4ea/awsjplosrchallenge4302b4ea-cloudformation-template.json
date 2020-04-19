@@ -5,13 +5,13 @@
 		"env": {
 			"Type": "String"
 		},
-		"storagedynamo7af7b5dcName": {
+		"storagesubmissionsName": {
 			"Type": "String",
-			"Default": "storagedynamo7af7b5dcName"
+			"Default": "storagesubmissionsName"
 		},
-		"storagedynamo7af7b5dcArn": {
+		"storagesubmissionsArn": {
 			"Type": "String",
-			"Default": "storagedynamo7af7b5dcArn"
+			"Default": "storagesubmissionsArn"
 		}
 	},
 	"Conditions": {
@@ -36,12 +36,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"awsjplosrchallenge25becbbe",
+						"awsjplosrchallenge4302b4ea",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"awsjplosrchallenge25becbbe",
+									"awsjplosrchallenge4302b4ea",
 									"-",
 									{
 										"Ref": "env"
@@ -70,8 +70,8 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-awsjplosrchallenge-prod-180357-deployment",
-					"S3Key": "amplify-builds/awsjplosrchallenge25becbbe-66336837366f796c5759-build.zip"
+					"S3Bucket": "amplify-awsjplosrchallenge-production-154122-deployment",
+					"S3Key": "amplify-builds/awsjplosrchallenge4302b4ea-71636e64566a434b6c45-build.zip"
 				}
 			}
 		},
@@ -81,12 +81,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"awsjplosrchallengeLambdaRole9d0ec18a",
+						"awsjplosrchallengeLambdaRole18ca402e",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"awsjplosrchallengeLambdaRole9d0ec18a",
+									"awsjplosrchallengeLambdaRole18ca402e",
 									"-",
 									{
 										"Ref": "env"
@@ -165,14 +165,14 @@
 							],
 							"Resource": [
 								{
-									"Ref": "storagedynamo7af7b5dcArn"
+									"Ref": "storagesubmissionsArn"
 								},
 								{
 									"Fn::Join": [
 										"/",
 										[
 											{
-												"Ref": "storagedynamo7af7b5dcArn"
+												"Ref": "storagesubmissionsArn"
 											},
 											"index/*"
 										]

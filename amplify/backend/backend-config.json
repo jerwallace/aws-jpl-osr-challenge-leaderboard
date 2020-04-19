@@ -1,19 +1,38 @@
 {
 	"storage": {
-		"dynamo7af7b5dc": {
+		"submissions": {
 			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
 		}
 	},
 	"function": {
-		"awsjplosrchallenge25becbbe": {
+		"awsjplosrchallenge4302b4ea": {
 			"build": true,
 			"providerPlugin": "awscloudformation",
 			"service": "Lambda",
 			"dependsOn": [
 				{
 					"category": "storage",
-					"resourceName": "dynamo7af7b5dc",
+					"resourceName": "submissions",
+					"attributes": [
+						"Name",
+						"Arn"
+					],
+					"attributeEnvMap": {
+						"Name": "TABLE_NAME",
+						"Arn": "TABLE_ARN"
+					}
+				}
+			]
+		},
+		"awsjplosrchallenge3719854b": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "submissions",
 					"attributes": [
 						"Name",
 						"Arn"
@@ -27,13 +46,21 @@
 		}
 	},
 	"api": {
-		"apid2b8bbf0": {
+		"api335d2c0c": {
 			"service": "API Gateway",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "awsjplosrchallenge25becbbe",
+					"resourceName": "awsjplosrchallenge3719854b",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "awsjplosrchallenge4302b4ea",
 					"attributes": [
 						"Name",
 						"Arn"
@@ -41,5 +68,6 @@
 				}
 			]
 		}
-	}
+	},
+	"auth": {}
 }

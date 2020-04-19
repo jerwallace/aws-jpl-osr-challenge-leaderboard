@@ -1,33 +1,22 @@
 {
-    "prod": {
+    "production": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-awsjplosrchallenge-prod-180357-authRole",
-            "UnauthRoleArn": "arn:aws:iam::127796135357:role/amplify-awsjplosrchallenge-prod-180357-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::127796135357:role/amplify-awsjplosrchallenge-prod-180357-authRole",
+            "AuthRoleName": "amplify-awsjplosrchallenge-production-154122-authRole",
+            "UnauthRoleArn": "arn:aws:iam::127796135357:role/amplify-awsjplosrchallenge-production-154122-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::127796135357:role/amplify-awsjplosrchallenge-production-154122-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-awsjplosrchallenge-prod-180357-deployment",
-            "UnauthRoleName": "amplify-awsjplosrchallenge-prod-180357-unauthRole",
-            "StackName": "amplify-awsjplosrchallenge-prod-180357",
-            "StackId": "arn:aws:cloudformation:us-east-1:127796135357:stack/amplify-awsjplosrchallenge-prod-180357/dae23f60-752d-11ea-b547-0aa554d91bcc",
-            "AmplifyAppId": "d28qu5vzofwm25"
-        }
-    },
-    "prodosr": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-awsjplosrchallenge-prodosr-173224-authRole",
-            "UnauthRoleArn": "arn:aws:iam::210423962510:role/amplify-awsjplosrchallenge-prodosr-173224-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::210423962510:role/amplify-awsjplosrchallenge-prodosr-173224-authRole",
-            "Region": "us-west-2",
-            "DeploymentBucketName": "amplify-awsjplosrchallenge-prodosr-173224-deployment",
-            "UnauthRoleName": "amplify-awsjplosrchallenge-prodosr-173224-unauthRole",
-            "StackName": "amplify-awsjplosrchallenge-prodosr-173224",
-            "StackId": "arn:aws:cloudformation:us-west-2:210423962510:stack/amplify-awsjplosrchallenge-prodosr-173224/a7e7e770-75f2-11ea-9644-06c69e594abe",
-            "AmplifyAppId": "d1vegrm2stw8l8"
+            "DeploymentBucketName": "amplify-awsjplosrchallenge-production-154122-deployment",
+            "UnauthRoleName": "amplify-awsjplosrchallenge-production-154122-unauthRole",
+            "StackName": "amplify-awsjplosrchallenge-production-154122",
+            "StackId": "arn:aws:cloudformation:us-east-1:127796135357:stack/amplify-awsjplosrchallenge-production-154122/97262940-81ac-11ea-b9b6-127e9735111e",
+            "AmplifyAppId": "d11afvanhvqyck"
         },
         "categories": {
             "function": {
-                "awsjplosrchallenge25becbbe": {},
-                "dynamo7af7b5dc": {}
+                "awsjplosrchallenge4302b4ea": {},
+                "awsjplosrchallenge3719854b": {},
+                "dynamo7af7b5dc": {},
+                "submissions": {}
             }
         }
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Header, Grid, Button, Label, Container, Icon, Modal } from 'semantic-ui-react'
+import { Responsive, Table, Header, Grid, Button, Label,Icon, Modal, Popup } from 'semantic-ui-react'
 import { Player } from 'video-react';
 
 class OSRLeaderboardTable extends React.Component {
@@ -12,7 +12,7 @@ class OSRLeaderboardTable extends React.Component {
     n = n + 1;
     if (n===1) { return(<Label ribbon color="yellow">#1 - Winner</Label>) }
     if (n===2) { return(null) }
-    else if (n===3) { return(<Label ribbon color="grey">#2 - Runner-up</Label>) }
+    else if (n===3) { return(<Label ribbon color="grey">#2 - Runner Up</Label>) }
     else {
       return(<Label ribbon>#{n-1}</Label>)
     }
@@ -20,52 +20,53 @@ class OSRLeaderboardTable extends React.Component {
   generateOutcome(outcome) {
       if (outcome==="complete") {
         return(
-          <Container fluid style={{ fontWeight: "bold", color:"lightgreen" }}>
-            <Icon name='checkmark' /> Mission Complete!
-          </Container>
+          <Icon name='checkmark' alt='Mission Complete!' />
         )
       } else if (outcome==="incomplete") {
         return(
-          <Container fluid style={{ fontWeight: "bold", color:"orange" }}>
-            <Icon name='warning sign' /> Mission Incomplete.
-          </Container>
+            <Icon name='warning sign' alt='Mission Incomplete.'/> 
         )
       } else if (outcome==="failed") {
         return(
-          <Container fluid style={{ fontWeight: "bold", color:"red" }}>
-            <Icon name='window close' /> Mission Failed.
-          </Container>
+            <Icon name='window close' alt='Mission Failed.'/> 
         )
       }
   }
-  generateRank(i) {
+  generateRank(i, outcome) {
     if (i===0) {
-      return (<Table.Cell rowSpan='2'>{this.generateLabel(i)}</Table.Cell>)
+      return (<Table.Cell disabled rowSpan="4">{this.generateLabel(i)}</Table.Cell>)
     } else if (i===1) {
-      return (null);
+      return (<Table.Cell disabled rowSpan="4"></Table.Cell>);
     } else {
-      return (<Table.Cell>{this.generateLabel(i)}</Table.Cell>)
+      return (<Table.Cell disabled rowSpan="4">{this.generateLabel(i)}</Table.Cell>)
     }
   }
 
-  generateSimLinks(leaderID) {
-    return(<Table.Cell>
-          <Button.Group vertical labeled icon>
-              <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim1.mp4"})} content='Trial 1' />
-              <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim2.mp4"})} style={{borderTop:"2spx solid #222", borderBottom:"2px solid #222"}} content='Trial 2' />
-              <Button inverted compact icon='play' size='mini' onClick={this.show({id: leaderID, name: "sim3.mp4"})} content='Trial 3' />
-          </Button.Group>
-        </Table.Cell>)
+  generateSimLinks(leaderID, trial) {
+    return(
+      <Button inverted style={{minWidth:"60px"}} onClick={this.show({id: leaderID, name: "sim"+trial+".mp4"})} icon>
+        <Icon name='play' />
+    </Button>)
   }
 
-  generateLogLinks(id) {
-    return(<Table.Cell>
-      <a href={"https://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log1.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 1</a>
-      <br />
-      <a href={"https://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log2.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 2</a>
-      <br />
-      <a href={"https://d12dhnpskrt04j.cloudfront.net/"+id+"/logs/log3.txt"} target="_blank" rel="noopener noreferrer"><Icon name="file alternate" size="small"></Icon>Log 3</a>
-    </Table.Cell>)
+  generateLogLinks(id, trial) {
+    return(<a href={'https://d12dhnpskrt04j.cloudfront.net/'+id+'/logs/log'+trial+'.txt'} rel="noopener noreferrer" target="_blank"><Button type='submit' inverted style={{minWidth:"60px"}} icon>
+      <Icon name='download' />
+    </Button></a>)
+  }
+
+  round(val) {
+    return Math.round(val * 100)/100
+  }
+
+  getColor(outcome) {
+    if (outcome==='failed') {
+      return "red";
+    } else if (outcome==='incomplete') {
+      return "orange";
+    } else {
+      return "green";
+    }
   }
 
   render() {
@@ -74,7 +75,7 @@ class OSRLeaderboardTable extends React.Component {
     let i = 0
     return (
     <div>
-        <Modal open={open} onClose={this.close}>
+        <Modal inverse open={open} onClose={this.close}>
          <Modal.Header>
          <Grid>
             <Grid.Row columns={2}>
@@ -99,39 +100,103 @@ class OSRLeaderboardTable extends React.Component {
               />
           </Modal.Content>
         </Modal>
-      <Table celled padded inverted size="large" style={{borderStyle: 'collapse'}}>
+      <Table selectable compact='very' structured celled padded inverted size="large" >
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell rowSpan='2'>Rank</Table.HeaderCell>
-            <Table.HeaderCell rowSpan='2'>Entry</Table.HeaderCell>
-            <Table.HeaderCell colSpan='4'>Results</Table.HeaderCell>
+            <Table.HeaderCell rowSpan="2"><Icon name='numbered list' /> Rank</Table.HeaderCell>
+            <Table.HeaderCell rowSpan="2"><Icon name='user' /> Entry</Table.HeaderCell>
+            <Table.HeaderCell colSpan="8"><Icon name='align justify'  /> Results</Table.HeaderCell>
           </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell>Score</Table.HeaderCell>
-            <Table.HeaderCell>Summary</Table.HeaderCell>
-            <Table.HeaderCell>Log Files</Table.HeaderCell>
-            <Table.HeaderCell>Watch</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-            {leaders.map((leader) =>
-              <Table.Row key={leader.id}>
-                      {this.generateRank(i++)} 
-                      <Table.Cell style={{fontSize: "12px"}} fixed>
-                        {leader.id}
-                      </Table.Cell>
-                      <Table.Cell style={{fontWeight: "bold"}} fixed>
-                        {leader.outcome==='complete' ? leader.score : "0.0000" }
-                      </Table.Cell>
-                      <Table.Cell>
-                        {this.generateOutcome(leader.outcome)}
-                        {leader.summary}
-                      </Table.Cell>
-                      {leader.outcome!=="failed" ? this.generateLogLinks(leader.id) : <Table.Cell>None Available</Table.Cell>}
-                      {leader.outcome!=="failed" ? this.generateSimLinks(leader.id) : <Table.Cell>None Available</Table.Cell>}
+            <Table.Row verticalAlign='top' style={{textAlign:"center"}}>
+            <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name="checkmark" color='grey' /></Table.HeaderCell>} content="Mission status. Hover your mouse cursor over a trial to get a full summary of what happened."></Popup>
+              <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name='trophy' color='grey'/> <br />Score</Table.HeaderCell>} content="The score is calculated by the measurement from the IMU, number of timesteps taken and distance from the checkpoint."></Popup>
+              <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name='move' color='grey'/> <br />Max IMU</Table.HeaderCell>} content="Inertial measurement units detect the force, angular rate and orientation of the rover. This determines how difficult the chosen path was and is factored into the final score."></Popup>
+              <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name='map pin' color='grey' />  <br />Distance</Table.HeaderCell>} content="The final distance between the rover and the checkpoint (in meters)."></Popup>
+              <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name='clock' color='grey'/> <br />Timesteps</Table.HeaderCell>} content="The amount of time consumed when the rover reached the checkpoint or sustained irrecoverable damage. The max amount of timesteps alloted were 265."></Popup>
+              <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name='power off' color='grey'/> <br />Power Left</Table.HeaderCell>} content="The amount of power left after the rover reached the checkpoint or sustained irrecoverable damage. If this value is zero, it means the rover's power source ran out."></Popup>
+              <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name='file' color='grey'/> <br />Full Log </Table.HeaderCell>} content="Download the entire log."></Popup>
+              <Popup inverted position='top center' on="hover" trigger={<Table.HeaderCell><Icon name='video' color='grey'/> <br />Watch </Table.HeaderCell>} content="Replay the simulation from start to finish!"></Popup>
             </Table.Row>
+        </Table.Header>
+            {leaders.map((leader) =>
+            <Table.Body>
+                {leader.trials.length === 0 ? 
+                  <Table.Row key={leader.id}>
+                        {this.generateRank(i++, leader.outcome)} 
+                        <Table.Cell disabled style={{fontWeight:"bold", color:"#fff"}}>
+                          {leader.name}
+                        </Table.Cell>
+                        <Table.Cell disabled style={{background: this.getColor(leader.outcome), color:"#fff" }} >
+                                {this.generateOutcome(leader.outcome) }
+                              </Table.Cell>
+                        <Table.Cell disabled colSpan="5" style={{color:"#fff"}}>{leader.overallSummary}</Table.Cell> 
+                        <Table.Cell disabled colSpan="2" style={{color:"#fff"}}>No data.</Table.Cell> 
+                  </Table.Row> : 
+                  <Table.Row key={leader.id}>
+                        {this.generateRank(i++, leader.outcome)} 
+                        <Table.Cell disabled rowSpan="4" style={{fontWeight:"bold", color:"#fff"}}>
+                          {leader.name}
+                        </Table.Cell>
+                  </Table.Row> }
+                  {leader.trials.length > 0 ? leader.trials.sort((a, b) => (a.score < b.score) ? 1 : -1).map((trial) => 
+                  <Popup wide position='top center' on="hover" mouseEnterDelay={800} trigger={<Table.Row key={leader.id+"-"+trial.num}>
+                              <Table.Cell style={{background: this.getColor(trial.outcome) }} >
+                                {this.generateOutcome(trial.outcome) }
+                                <Responsive style={{float:"right"}}  {...Responsive.onlyMobile}>
+                                    Trial {trial.num}: Mission {trial.outcome}
+                                </Responsive>
+                              </Table.Cell>
+                              <Table.Cell style={{fontWeight:"bold"}}>
+                              <Responsive {...Responsive.onlyMobile}>
+                               Score: 
+                              </Responsive>
+                              {this.round(trial['score']) }
+                              </Table.Cell>
+                              <Table.Cell>
+                              <Responsive {...Responsive.onlyMobile}>
+                               Max IMU: 
+                              </Responsive>
+                                {this.round(trial['data']['maxIMU']) }
+                              </Table.Cell>
+                             <Table.Cell>
+                             <Responsive  {...Responsive.onlyMobile}>
+                               Distance From Checkpoint (m):
+                              </Responsive>
+                                {this.round(trial['distanceFromGoal']) }
+                              </Table.Cell>
+                             <Table.Cell>
+                             <Responsive  {...Responsive.onlyMobile}>
+                               Timesteps:
+                              </Responsive>
+                                {trial['data']['timesteps'] }
+                              </Table.Cell>
+                              <Table.Cell>
+                              <Responsive {...Responsive.onlyMobile}>
+                               Power Left:
+                              </Responsive>
+                                {trial['data']['powerSupplyLeft'] }
+                              </Table.Cell>
+                              <Table.Cell>
+                                {this.generateLogLinks(leader.id, trial['num'])}
+                              </Table.Cell>
+                              <Table.Cell>
+                                {this.generateSimLinks(leader.id, trial['num'])}
+                              </Table.Cell>
+                </Table.Row>}>
+                  <div style={{float:"right", fontWeight:"bold", fontSize:"10px", color:"#666"}}>
+                    TRIAL {trial.num}
+                  </div>
+                  <div style={{color:this.getColor(trial.outcome), fontWeight:"bold"}}>
+                    {this.generateOutcome(trial.outcome)}
+                    {trial.outcome==="complete" ? "Mission Complete!" : "Misson incomplete." }
+                  </div>
+                  <div>
+                    {trial.summary}
+                  </div>
+                </Popup>)
+                  : null }
+            </Table.Body>
             )}
-        </Table.Body>
       </Table>
     </div>
     )

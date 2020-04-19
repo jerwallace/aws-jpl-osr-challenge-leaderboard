@@ -12,13 +12,6 @@
             "Type": "String"
         },
         
-        "sortKeyName": {
-            "Type": "String"
-        },
-        "sortKeyType": {
-            "Type": "String"
-        },
-        
         "tableName": {
             "Type": "String"
         }
@@ -40,12 +33,17 @@
                 "AttributeDefinitions": [
                   
                   {
-                      "AttributeName": "name",
+                      "AttributeName": "id",
                       "AttributeType": "S"
                   }  , 
                   
                   {
                       "AttributeName": "score",
+                      "AttributeType": "S"
+                  }  , 
+                  
+                  {
+                      "AttributeName": "type",
                       "AttributeType": "S"
                   } 
                   
@@ -53,13 +51,8 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "name",
+                    "AttributeName": "id",
                     "KeyType": "HASH"
-                  }  , 
-                  
-                  {
-                    "AttributeName": "score",
-                    "KeyType": "RANGE"
                   } 
                   
                 ],
@@ -94,6 +87,34 @@
                     ]
                 }
                 
+                ,"GlobalSecondaryIndexes": [
+                  
+                    {
+                        "IndexName": "leaderboard",
+                        "KeySchema": [
+                            
+                            {
+                                "AttributeName": "type",
+                                "KeyType": "HASH"
+                            }  , 
+                            
+                            {
+                                "AttributeName": "score",
+                                "KeyType": "RANGE"
+                            } 
+                            
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": "5",
+                            "WriteCapacityUnits": "5"
+                        }
+                    } 
+                  
+                ]
+                
             }
         }
     },
@@ -127,17 +148,6 @@
         "PartitionKeyType": {
             "Value": {
                 "Ref": "partitionKeyType"
-            }
-        },
-        
-        "SortKeyName": {
-            "Value": {
-                "Ref": "sortKeyName"
-            }
-        },
-        "SortKeyType": {
-            "Value": {
-                "Ref": "sortKeyType"
             }
         },
         
