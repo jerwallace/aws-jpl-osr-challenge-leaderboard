@@ -1,7 +1,8 @@
 import React from "react";
 import OSRLeaderboardTable from "../components/OSRLeaderboardTable.js";
-import { Image, Container } from 'semantic-ui-react'
+import { Image, Container, Dimmer } from 'semantic-ui-react'
 import Amplify, { API } from 'aws-amplify';
+import ReactLoading from "react-loading";
 import aws_exports from "../aws-exports";
 Amplify.configure(aws_exports);
 let apiName = 'api335d2c0c';
@@ -20,15 +21,22 @@ class OSRLeaderboard extends React.Component {
       this.setState({leaders: response})
 
     });
-    document.body.classList.add('osr');
+    document.body.classList.add('osr'); 
     document.title = "AWS JPL Open Source Rover Challenge"
   }
-
   render() {
     return (
-        <Container fluid className="main">
+      <div>{this.state.leaders.length ===  0 ? 
+      <Container fluid>
+        <Dimmer active>
+          <ReactLoading type={"bars"} color={"white"} />
+        </Dimmer>
+      </Container>
+      :
+        <Container fluid>
           <Container >
             <Image src='/logo.png' size='huge' />
+            
             <OSRLeaderboardTable leaders={this.state.leaders} />
           </Container>
           <footer style={{ width: '100%',
@@ -37,7 +45,9 @@ class OSRLeaderboard extends React.Component {
                      }}>
             <Image src='/sponsoredby.png' size='large' centered />
           </footer>
-        </Container>          
+        </Container>
+        }
+      </div>          
     );
 
   }

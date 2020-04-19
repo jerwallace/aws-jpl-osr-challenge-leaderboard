@@ -12,6 +12,15 @@
     background-attachment: fixed;
     background-position: center;
   }
+  .main {
+    background-image: url('bg_main.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
   
   a, a.visited {
     color: #FF9900;
